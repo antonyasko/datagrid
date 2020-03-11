@@ -1,22 +1,79 @@
-/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable no-shadow */
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-// import arrowIcon from '../../../assets/icons/arrow.svg';
+import { connect } from 'react-redux';
+import { setOneOfSearchValues } from '../../../actions';
+import dataTable from '../../data.json';
 import arrowEmptyIcon from '../../../assets/icons/arrow-empty.svg';
 import searchIcon from '../../../assets/icons/search.svg';
+import searchFilterIcon from '../../../assets/icons/search-filter.svg';
+import closeIcon from '../../../assets/icons/close.svg';
 
 import './tableHead.scss';
 
-export default class TableHead extends PureComponent {
+class TableHead extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.showSearchBar = this.showSearchBar.bind(this);
+    this.closeSearchBar = this.closeSearchBar.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  showSearchBar = event => {
+    const { target } = event;
+    document.getElementsByClassName('search-bar')[Number(`${target.id.slice(7)}`)].style.display =
+      'flex';
+    document.getElementsByClassName('buttons-block')[
+      Number(`${target.id.slice(7)}`)
+    ].style.marginTop = '0px';
+  };
+
+  closeSearchBar = event => {
+    const { target } = event;
+    document.getElementsByClassName('search-bar')[Number(`${target.id.slice(6)}`)].style.display =
+      'none';
+    document.getElementsByClassName('buttons-block')[
+      Number(`${target.id.slice(6)}`)
+    ].style.marginTop = '48px';
+  };
+
+  handleSearch = event => {
+    const { setOneOfSearchValues } = this.props;
+    const option = event.target.getAttribute('option');
+    setOneOfSearchValues(event.target.value, option);
+    document.getElementById(`search-${event.target.id.slice(13)}`).style.background =
+      event.target.value === '' ? `url(${searchIcon})` : `url(${searchFilterIcon})`;
+  };
+
   render() {
-    const { dataTable } = this.props;
+    const { searchValues } = this.props;
 
     return (
-      <thead>
-        <tr className="option-list">
-          {Object.keys(dataTable[0]).map(option => {
-            return (
-              <th key={option} className="option-item">
+      <div className="option-list">
+        {Object.keys(dataTable[0]).map((option, index) => {
+          return (
+            <div key={option} className="option-item">
+              <form className="search-bar">
+                <input
+                  className="search-field"
+                  id={`search-field-${index}`}
+                  type="text"
+                  placeholder=""
+                  value={searchValues[option] || ''}
+                  onChange={this.handleSearch}
+                  option={option}
+                />
+                <button
+                  type="button"
+                  className="close-button"
+                  onClick={this.closeSearchBar}
+                  id={`close-${index}`}
+                  style={{ background: `url(${closeIcon})` }}
+                />
+              </form>
+              <div className="buttons-block">
                 <button type="button" className="sort-button">
                   <p className="option-title">{option}</p>
                   <div className="arrows">
@@ -24,18 +81,32 @@ export default class TableHead extends PureComponent {
                     <img className="down-arrow-icon" src={arrowEmptyIcon} alt="down-arrow" />
                   </div>
                 </button>
-                <button type="button" className="search-button">
-                  <img className="search-icon" src={searchIcon} alt="search" />
-                </button>
-              </th>
-            );
-          })}
-        </tr>
-      </thead>
+                <button
+                  type="button"
+                  className="search-button"
+                  onClick={this.showSearchBar}
+                  id={`search-${index}`}
+                  style={{ background: `url(${searchIcon})` }}
+                  // style={{
+                  //   background: `url(${
+                  //     document.getElementById('search-field-0').value === '' ? searchIcon
+                  //       : searchFilterIcon
+                  //   })`,
+                  // }}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
     );
   }
 }
 
-TableHead.propTypes = {
-  dataTable: PropTypes.array.isRequired,
+const mapStateToProps = ({ mainReducer }) => {
+  return {
+    searchValues: mainReducer.searchValues,
+  };
 };
+
+export default connect(mapStateToProps, { setOneOfSearchValues })(TableHead);

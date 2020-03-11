@@ -1,20 +1,25 @@
 .option-list {
   display: flex;
+  flex-direction: row;
   padding: 0;
   margin: 0;
   height: min-content;
   justify-content: center;
-  border-top: 1px solid #303030;
-  border-bottom: 1px solid #303030;
-  background-color: #cacaca;
   .option-item {
-    height: 40px;
+    height: 90px;
     font-size: 18px;
     padding: 0;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border-right: 1px solid #303030;
+    .search-field {
+      width: 60px;
+      height: 40px;
+      padding: 0;
+      border: none;
+      font-size: 18px;
+    }
     button {
       background: none;
       outline: none;
@@ -29,89 +34,166 @@
       margin: 0;
       padding: 0;
     }
-    .sort-button {
-      padding: 0 0 0 5px;
-      display: flex;
+    .search-bar {
+      display: none;
       flex-direction: row;
+      justify-content: space-between;
       align-items: center;
-      .option-title {
-        color: #000000;
-        font-weight: bold;
-        font-size: 20px;
-        margin: 0;
-      }
-      .arrows {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
+      height: 40px;
+      border: 1px solid black;
+      background-color: #cacaca;
+      .close-button {
         width: 40px;
         height: 40px;
-        .up-arrow-icon {
-          transform: rotate(180deg);
-        }
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-size: 50% !important;
       }
     }
-    .search-button {
-      width: 40px;
-      height: 40px;
+    .buttons-block {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #303030;
+      border-bottom: 1px solid #303030;
+      background-color: #cacaca;
+      border-right: 1px solid #303030;
+      .sort-button {
+        padding: 0 0 0 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .option-title {
+          color: #000000;
+          font-weight: bold;
+          font-size: 20px;
+          margin: 0;
+        }
+        .arrows {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+          width: 40px;
+          height: 40px;
+          .up-arrow-icon {
+            transform: rotate(180deg);
+          }
+        }
+      }
+      .search-button {
+        width: 40px;
+        height: 40px;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-size: 50% !important;
+      }
     }
-  
   }
-  .sort-button:hover, .search-button:hover {
+  .sort-button:hover, .search-button:hover, .close-button:hover {
     background-color: #40bfe9;
   }
 }
 
 .option-item:first-child {
-  width: 110px;
-  border-left: 1px solid #303030;
-  .sort-button {
-    padding-right: 8px;
+  .search-bar {
+    .search-field {
+      width: 70px;
+    }
+  }
+  .buttons-block {
+    width: 110px;
+    border-left: 1px solid #303030;
+    .sort-button {
+      padding-right: 8px;
+    }
   }
 }
 
 .option-item:nth-child(2) {
-  width: 215px;
-  .sort-button {
-    padding-right: 78px;
+  .search-bar {
+    .search-field {
+      width: 174px;
+    }
+  }
+  .buttons-block {
+    width: 215px;
+    .sort-button {
+      padding-right: 78px;
+    }
   }
 }
 
 .option-item:nth-child(3) {
-  width: 130px;
-  .sort-button {
-    padding-right: 11px;
+  .search-bar {
+    .search-field {
+      width: 89px;
+    }
+  }
+  .buttons-block {
+    width: 130px;
+    .sort-button {
+      padding-right: 11px;
+    }
   }
 }
 
 .option-item:nth-child(4) {
-  width: 210px;
-  .sort-button {
-    width: 170px;
-    padding-right: 30px;
+  .search-bar {
+    .search-field {
+      width: 169px;
+    }
+  }
+  .buttons-block {
+    width: 210px;
+    .sort-button {
+      width: 170px;
+      padding-right: 30px;
+    }
   }
 }
 
 .option-item:nth-child(5) {
-  width: 160px;
-  .sort-button {
-    padding-right: 9px;
+  .search-bar {
+    .search-field {
+      width: 119px;
+    }
+  }
+  .buttons-block {
+    width: 160px;
+    .sort-button {
+      padding-right: 9px;
+    }
   }
 }
 
 .option-item:nth-child(6) {
-  width: 350px;
-  // text-overflow: ellipsis;
-  .sort-button {
-    width: 311px;
-    padding-right: 214px;
+  .search-bar {
+    .search-field {
+      width: 309px;
+    }
+  }
+  .buttons-block {
+    width: 350px;
+    .sort-button {
+      width: 311px;
+      padding-right: 214px;
+    }
   }
 }
 
 .option-item:nth-child(7) {
-  width: 185px;
-  .sort-button {
-    padding-right: 19px;
+  .search-bar {
+    .search-field {
+      width: 158px;
+    }
+  }
+  .buttons-block {
+    width: 199px;
+    .sort-button {
+      padding-right: 30px;
+    }
   }
 }

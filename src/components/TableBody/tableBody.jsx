@@ -1,32 +1,14 @@
-/* eslint-disable react/forbid-prop-types */
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { FixedSizeList as List } from 'react-window';
+import Table from './table';
 import './tableBody.scss';
 
-export default class TableBody extends PureComponent {
-  render() {
-    const { dataTable } = this.props;
+const windowHeight = document.documentElement.clientHeight;
 
-    return (
-      <tbody>
-        {dataTable.map((employee, index) => {
-          return (
-            <tr key={dataTable[index].id} className="employee-options">
-              {Object.values(dataTable[index]).map(option => {
-                return (
-                  <td key={option} className="employee-item">
-                    {option}
-                  </td>
-                );
-              })}
-            </tr>
-          );
-        })}
-      </tbody>
-    );
-  }
-}
+const TableRows = () => (
+  <List height={windowHeight - 225} itemCount={1} itemSize={42} width={1385}>
+    {Table}
+  </List>
+);
 
-TableBody.propTypes = {
-  dataTable: PropTypes.array.isRequired,
-};
+export default TableRows;
