@@ -9,7 +9,6 @@ import arrowEmptyIcon from '../../../assets/icons/arrow-empty.svg';
 import searchIcon from '../../../assets/icons/search.svg';
 import searchFilterIcon from '../../../assets/icons/search-filter.svg';
 import closeIcon from '../../../assets/icons/close.svg';
-
 import './tableHead.scss';
 
 class TableHead extends PureComponent {
@@ -19,6 +18,7 @@ class TableHead extends PureComponent {
     this.showSearchBar = this.showSearchBar.bind(this);
     this.closeSearchBar = this.closeSearchBar.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.sortValues = this.sortValues.bind(this);
   }
 
   showSearchBar = event => {
@@ -41,10 +41,16 @@ class TableHead extends PureComponent {
 
   handleSearch = event => {
     const { setOneOfSearchValues } = this.props;
-    const option = event.target.getAttribute('option');
-    setOneOfSearchValues(event.target.value, option);
+    setOneOfSearchValues(event.target.value, event.target.getAttribute('option'));
     document.getElementById(`search-${event.target.id.slice(13)}`).style.background =
       event.target.value === '' ? `url(${searchIcon})` : `url(${searchFilterIcon})`;
+  };
+
+  sortValues = () => {
+    // eslint-disable-next-line no-unused-vars
+    // const option = event.target.getAttribute('option');
+    const newArr = dataTable.sort((a, b) => (a.name > b.name ? 1 : -1));
+    return newArr;
   };
 
   render() {
@@ -60,7 +66,7 @@ class TableHead extends PureComponent {
                   className="search-field"
                   id={`search-field-${index}`}
                   type="text"
-                  placeholder=""
+                  placeholder={option}
                   value={searchValues[option] || ''}
                   onChange={this.handleSearch}
                   option={option}
@@ -74,7 +80,13 @@ class TableHead extends PureComponent {
                 />
               </form>
               <div className="buttons-block">
-                <button type="button" className="sort-button">
+                <button
+                  type="button"
+                  id={`sort-${index}`}
+                  className="sort-button"
+                  onClick={this.sortValues}
+                  option={option}
+                >
                   <p className="option-title">{option}</p>
                   <div className="arrows">
                     <img className="up-arrow-icon" src={arrowEmptyIcon} alt="up-arrow" />
@@ -87,12 +99,6 @@ class TableHead extends PureComponent {
                   onClick={this.showSearchBar}
                   id={`search-${index}`}
                   style={{ background: `url(${searchIcon})` }}
-                  // style={{
-                  //   background: `url(${
-                  //     document.getElementById('search-field-0').value === '' ? searchIcon
-                  //       : searchFilterIcon
-                  //   })`,
-                  // }}
                 />
               </div>
             </div>

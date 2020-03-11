@@ -4,7 +4,6 @@
   margin: 0;
   justify-content: center;
   .employee-item {
-    background-color: #e9e9e9;
     height: 40px;
     font-size: 18px;
     padding: 0px 5px;
@@ -17,6 +16,19 @@
   }
 }
 
+.active-row {
+  background-color: #9400d3 !important;
+}
+.active-row:hover {
+  background-color: #ee82ee !important;
+  cursor: pointer;
+}
+
+
+.employee-options:hover {
+  background-color: #fffacd;
+  cursor: pointer;
+}
 .employee-item:first-child {
   width: 100px;
   border-left: 1px solid #303030;

@@ -92,8 +92,14 @@
       }
     }
   }
-  .sort-button:hover, .search-button:hover, .close-button:hover {
-    background-color: #40bfe9;
+  .sort-button:hover {
+    background-color: #008000 !important;
+  }
+  .search-button:hover {
+    background-color: #00bfff !important;
+  }
+  .close-button:hover {
+    background-color: #ff0000 !important;
   }
 }
 
