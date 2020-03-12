@@ -18,10 +18,16 @@
 
 .active-row {
   background-color: #9400d3 !important;
+  .employee-item {
+    color: #ffffff;
+  }
 }
 .active-row:hover {
   background-color: #ee82ee !important;
   cursor: pointer;
+  .employee-item {
+    color: #000000;
+  }
 }
 
 

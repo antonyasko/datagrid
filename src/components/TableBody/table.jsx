@@ -1,26 +1,52 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { connect } from 'react-redux';
 import dataTable from '../../data.json';
 
+const rowsState = { ctrl: false };
+
 document.body.addEventListener('keydown', e => {
-  if (e.code === 'Delete') {
-    const activeRows = document.body.getElementsByClassName('active-row');
-    if (activeRows.length !== 0) {
-      Array.from(activeRows).forEach(item => item.remove());
-    }
+  if (e.key === 'Delete') {
+    const activeRows = Array.from(document.body.getElementsByClassName('active-row'));
+    if (activeRows.length !== 0) activeRows.forEach(item => item.remove());
   }
+  if (e.key === 'Control') rowsState.ctrl = true;
+});
+
+document.body.addEventListener('keyup', e => {
+  if (e.key === 'Control') rowsState.ctrl = false;
 });
 
 function makeActive(e) {
   const { target } = e;
   const nodeClass = target.parentNode.classList;
+  const activeRows = Array.from(document.body.getElementsByClassName('active-row'));
+
   if (target.tagName === 'TD') {
-    nodeClass.contains('active-row') ? nodeClass.remove('active-row') : nodeClass.add('active-row');
+    if (activeRows.length === 0) {
+      nodeClass.add('active-row');
+    } else if (activeRows.length === 1) {
+      if (rowsState.ctrl) {
+        nodeClass.contains('active-row')
+          ? nodeClass.remove('active-row')
+          : nodeClass.add('active-row');
+      } else {
+        nodeClass.contains('active-row')
+          ? nodeClass.remove('active-row')
+          : (activeRows.forEach(item => item.classList.remove('active-row')),
+            nodeClass.add('active-row'));
+      }
+    } else if (activeRows.length > 1) {
+      if (rowsState.ctrl) {
+        nodeClass.contains('active-row')
+          ? nodeClass.remove('active-row')
+          : nodeClass.add('active-row');
+      } else {
+        activeRows.forEach(item => item.classList.remove('active-row'));
+        nodeClass.contains('active-row')
+          ? nodeClass.remove('active-row')
+          : nodeClass.add('active-row');
+      }
+    }
   }
 }
 
@@ -31,10 +57,9 @@ const Table = props => {
   const dataToShow = fieldsWithSearchValues.length
     ? dataTable.filter(obj =>
         fieldsWithSearchValues.every(field => {
-          if (typeof obj[field] === 'number') {
-            return String(obj[field]).indexOf(searchValues[field]) === 0;
-          }
-          return obj[field].toUpperCase().indexOf(searchValues[field].toUpperCase()) === 0;
+          return typeof obj[field] === 'number'
+            ? String(obj[field]).indexOf(searchValues[field]) === 0
+            : obj[field].toUpperCase().indexOf(searchValues[field].toUpperCase()) === 0;
         })
       )
     : dataTable;

@@ -1,6 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable no-shadow */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { setOneOfSearchValues } from '../../../actions';
@@ -47,7 +44,6 @@ class TableHead extends PureComponent {
   };
 
   sortValues = () => {
-    // eslint-disable-next-line no-unused-vars
     // const option = event.target.getAttribute('option');
     const newArr = dataTable.sort((a, b) => (a.name > b.name ? 1 : -1));
     return newArr;
