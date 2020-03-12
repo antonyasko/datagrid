@@ -6,5 +6,10 @@
   "extends": ["airbnb", "plugin:prettier/recommended"],
   "rules": {
     "strict": 0
-  }
+  },
+  "no-unused-expressions": 0,
+  "no-noninteractive-element-interactions": 0,
+  "click-events-have-key-events": 0,
+  "no-array-index-key" : 0,
+  "prop-types" : 0
 }
