@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable no-shadow */
+/* eslint-disable react/prop-types */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { setOneOfSearchValues } from '../../../actions';

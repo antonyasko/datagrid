@@ -1,3 +1,6 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-expressions */
 import React from 'react';
 import { connect } from 'react-redux';
 import dataTable from '../../data.json';
@@ -65,8 +68,8 @@ const Table = props => {
     : dataTable;
 
   return (
-    <table>
-      <tbody>
+    <table cellSpacing="0">
+      <tbody id="data-table">
         {dataToShow.map((employee, index) => {
           return (
             <tr key={dataToShow[index].id} className="employee-options" onClick={makeActive}>
