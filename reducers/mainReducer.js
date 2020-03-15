@@ -9,6 +9,9 @@ const initialState = {
     email: '',
     vacation: null,
   },
+  sortField: null,
+  virtualization: true,
+  inVacation: true,
 };
 
 export default function mainReducer(state = initialState, action) {
@@ -23,6 +26,22 @@ export default function mainReducer(state = initialState, action) {
           ...state.searchValues,
           [option]: searchValue,
         },
+      };
+    case 'setSortField':
+      return {
+        ...state,
+        sortField: payload,
+      };
+    case 'setVirtualization':
+      return {
+        ...state,
+        // virtualization: !state.virtualization,
+        virtualization: payload,
+      };
+    case 'setVacation':
+      return {
+        ...state,
+        inVacation: payload,
       };
     default:
       return state;

@@ -1,0 +1,83 @@
+#virtualizer-block {
+  width: 220px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 7px 0;
+  #virtualizer-title {
+    margin: 0;
+    color: #000000;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+$fontSize                            : 15px;
+$inputFontSize                       : $fontSize - 2;
+$lineHeight                          : 1.5;
+$inputLineHeight                     : 1.24;
+$white                               : #FFF;
+$gray                                : #636363;
+$formBg                              : $white;
+$formColor                     : #008000;
+
+#toggle-virtualizer {
+	$switchWidth: 78px;
+	background-color: $formBg;
+	border: 1px solid $gray;
+	color: $white;
+	cursor: pointer;
+    display: inline-block;
+	font-size: 0;
+	height: 39px;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	width: $switchWidth;
+
+    -webkit-user-select: none;
+    -webkit-appearance: none;
+
+	&:after,
+	&:before {
+		background-color: $gray;
+		color: $white;
+		content : "Off";
+        display: block;
+		font-size: $inputFontSize;
+		line-height: $lineHeight;
+		height: 100%;
+		left: 0;
+		padding: 7px 0;
+		position: absolute;
+		text-align: center;
+		top: 0;
+		width: 51%;
+	}
+
+	&:after {
+		background-color: $formColor;
+		content : "On";
+        left: 0;
+        text-indent: 50%;
+		width: 100%;
+            
+        background: 
+                -webkit-linear-gradient(left, darken($formBg, 10%) 0, $formBg 100%) repeat-y 0 0,
+                -webkit-linear-gradient(left, $formBg 0%, $formBg 49%, $formColor 50%, $formColor 100%) repeat-y 0 0;
+        
+        background-size: 50% 50%, 100% 100%;
+        background-origin: 50% 50%, 0 0;
+            
+        -webkit-transition: all 0.15s ease;
+        -moz-transition: all 0.15s ease;
+        -ms-transition: all 0.15s ease;
+        transition: all 0.15s ease;
+  }
+      
+  &:checked:after {
+      left: 50%;    
+  }
+}

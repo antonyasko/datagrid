@@ -191,15 +191,95 @@
 }
 
 .option-item:nth-child(7) {
-  .search-bar {
-    .search-field {
-      width: 158px;
-    }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  width: 202px;
+  height: 40px;
+  border: 1px solid black;
+  border-left: none;
+  background-color: #cacaca;
+  margin-top: 48px;
+  p {
+    width: min-content;
+    color: #000000;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0;
   }
-  .buttons-block {
-    width: 199px;
-    .sort-button {
-      padding-right: 30px;
-    }
+  input {
+    margin: 0;
+  }
+}
+
+$fontSize                            : 15px;
+$inputFontSize                       : $fontSize - 2;
+$lineHeight                          : 1.5;
+$inputLineHeight                     : 1.24;
+$white                               : #FFF;
+$gray                                : #636363;
+$formInputHeight                     : (($fontSize+2) * 2);
+$formBg                              : $white;
+$formColor                     : #0000ff;
+
+.toggle-button {
+	$switchWidth: 78px;
+	background-color: $formBg;
+	border: 1px solid $gray;
+	color: $white;
+	cursor: pointer;
+    display: inline-block;
+	font-size: 0;
+	height: $formInputHeight;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	width: $switchWidth;
+
+    -webkit-user-select: none;
+    -webkit-appearance: none;
+
+	&:after,
+	&:before {
+		background-color: $gray;
+		color: $white;
+    content : "all";
+        display: block;
+		font-size: $inputFontSize;
+		line-height: $lineHeight;
+		height: 100%;
+		left: 0;
+		padding: 7px 0;
+		position: absolute;
+		text-align: center;
+		top: 0;
+		width: 51%;
+	}
+
+	&:after {
+		background-color: $formColor;
+		content : "";
+        left: 0;
+        text-indent: 50%;
+		width: 100%;
+            
+        background: 
+                -webkit-linear-gradient(left, darken($formBg, 10%) 0, $formBg 100%) repeat-y 0 0,
+                -webkit-linear-gradient(left, $formBg 0%, $formBg 49%, $formColor 50%, $formColor 100%) repeat-y 0 0;
+        
+        background-size: 50% 50%, 100% 100%;
+        background-origin: 50% 50%, 0 0;
+            
+        -webkit-transition: all 0.15s ease;
+        -moz-transition: all 0.15s ease;
+        -ms-transition: all 0.15s ease;
+        transition: all 0.15s ease;
+  }
+      
+  &:checked:after {
+      left: 50%;    
   }
 }

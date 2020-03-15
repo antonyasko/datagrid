@@ -3,12 +3,14 @@
 /* eslint-disable react/prop-types */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { setOneOfSearchValues } from '../../../actions';
+import { setSortField, setOneOfSearchValues, setVacation } from '../../../actions';
 import dataTable from '../../data.json';
 import arrowEmptyIcon from '../../../assets/icons/arrow-empty.svg';
 import searchIcon from '../../../assets/icons/search.svg';
 import searchFilterIcon from '../../../assets/icons/search-filter.svg';
 import closeIcon from '../../../assets/icons/close.svg';
+import '../../../node_modules/bootstrap-toggle/css/bootstrap-toggle.css';
+
 import './tableHead.scss';
 
 class TableHead extends PureComponent {
@@ -19,6 +21,7 @@ class TableHead extends PureComponent {
     this.closeSearchBar = this.closeSearchBar.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.sortValues = this.sortValues.bind(this);
+    this.showInVacation = this.showInVacation.bind(this);
   }
 
   showSearchBar = event => {
@@ -46,19 +49,35 @@ class TableHead extends PureComponent {
       event.target.value === '' ? `url(${searchIcon})` : `url(${searchFilterIcon})`;
   };
 
-  sortValues = () => {
-    // const option = event.target.getAttribute('option');
-    const newArr = dataTable.sort((a, b) => (a.name > b.name ? 1 : -1));
-    return newArr;
+  sortValues = event => {
+    const { setSortField } = this.props;
+    const option = event.currentTarget.getAttribute('option');
+    setSortField(option);
+  };
+
+  showInVacation = () => {
+    const { inVacation, setVacation } = this.props;
+    setVacation(!inVacation);
   };
 
   render() {
-    const { searchValues } = this.props;
+    const { inVacation, searchValues } = this.props;
 
     return (
       <div className="option-list">
         {Object.keys(dataTable[0]).map((option, index) => {
-          return (
+          return option === 'vacation' ? (
+            <div key={option} className="option-item checkbox">
+              <p>{option}</p>
+              <input
+                type="checkbox"
+                checked={inVacation}
+                id="toggle-vacation"
+                className="toggle-button"
+                onChange={this.showInVacation}
+              />
+            </div>
+          ) : (
             <div key={option} className="option-item">
               <form className="search-bar">
                 <input
@@ -111,7 +130,12 @@ class TableHead extends PureComponent {
 const mapStateToProps = ({ mainReducer }) => {
   return {
     searchValues: mainReducer.searchValues,
+    inVacation: mainReducer.inVacation,
   };
 };
 
-export default connect(mapStateToProps, { setOneOfSearchValues })(TableHead);
+export default connect(mapStateToProps, {
+  setSortField,
+  setOneOfSearchValues,
+  setVacation,
+})(TableHead);

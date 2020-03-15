@@ -1,8 +1,10 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-expressions */
 import React from 'react';
 import { connect } from 'react-redux';
+
 import dataTable from '../../data.json';
 
 const rowsState = { ctrl: false };
@@ -54,29 +56,36 @@ function makeActive(e) {
 }
 
 const Table = props => {
-  const { searchValues } = props;
+  const { searchValues, inVacation } = props;
+
+  const dataWithVacation = inVacation ? dataTable : dataTable.filter(obj => obj.vacation === false);
 
   const fieldsWithSearchValues = Object.keys(searchValues).filter(field => !!searchValues[field]);
   const dataToShow = fieldsWithSearchValues.length
-    ? dataTable.filter(obj =>
+    ? dataWithVacation.filter(obj =>
         fieldsWithSearchValues.every(field => {
           return typeof obj[field] === 'number'
             ? String(obj[field]).indexOf(searchValues[field]) === 0
             : obj[field].toUpperCase().indexOf(searchValues[field].toUpperCase()) === 0;
         })
       )
-    : dataTable;
+    : dataWithVacation;
+
+  const { sortField } = props;
+  const sortedTableData = sortField
+    ? dataToShow.sort((a, b) => (a[sortField] > b[sortField] ? 1 : -1))
+    : dataToShow;
 
   return (
     <table cellSpacing="0">
       <tbody id="data-table">
-        {dataToShow.map((employee, index) => {
+        {sortedTableData.map((employee, index) => {
           return (
-            <tr key={dataToShow[index].id} className="employee-options" onClick={makeActive}>
-              {Object.values(dataToShow[index]).map((option, i) => {
+            <tr key={sortedTableData[index].id} className="employee-options" onClick={makeActive}>
+              {Object.values(sortedTableData[index]).map((option, i) => {
                 return (
                   <td key={`td${i}`} className="employee-item">
-                    {option}
+                    {typeof option !== 'boolean' ? option : option === true ? 'Yes' : 'No'}
                   </td>
                 );
               })}
@@ -89,8 +98,13 @@ const Table = props => {
 };
 
 const mapStateToProps = ({ mainReducer }) => {
+  const { searchValues, sortField, virtualization, inVacation } = mainReducer;
+
   return {
-    searchValues: mainReducer.searchValues,
+    sortField,
+    searchValues,
+    virtualization,
+    inVacation,
   };
 };
 

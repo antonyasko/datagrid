@@ -4,8 +4,20 @@ export const setOneOfSearchValues = (searchValue, option) => dispatch =>
     payload: { searchValue, option },
   });
 
-export const setOneOfSearchValues111 = searchValues => dispatch =>
+export const setSortField = sortField => dispatch =>
   dispatch({
-    type: 'setOneOfSearchValues',
-    payload: searchValues,
+    type: 'setSortField',
+    payload: sortField,
+  });
+
+export const setVirtualization = virtualization => dispatch =>
+  dispatch({
+    type: 'setVirtualization',
+    payload: virtualization,
+  });
+
+export const setVacation = inVacation => dispatch =>
+  dispatch({
+    type: 'setVacation',
+    payload: inVacation,
   });
