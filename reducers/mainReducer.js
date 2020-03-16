@@ -7,7 +7,6 @@ const initialState = {
     residence: '',
     gender: '',
     email: '',
-    vacation: null,
   },
   sortField: null,
   sortFieldCounter: 0,
@@ -41,7 +40,6 @@ export default function mainReducer(state = initialState, action) {
     case 'setVirtualization':
       return {
         ...state,
-        // virtualization: !state.virtualization,
         virtualization: payload,
       };
     case 'setVacation':
