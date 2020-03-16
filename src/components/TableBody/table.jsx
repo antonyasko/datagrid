@@ -84,7 +84,7 @@ const Table = props => {
       >
         {Object.values(sortedTableData[index]).map((option, i) => {
           return (
-            <div key={`td${i}`} className="employee-item">
+            <div key={`td${i}`} className="employee-item table-cell">
               {typeof option !== 'boolean' ? option : option === true ? 'Yes' : 'No'}
             </div>
           );

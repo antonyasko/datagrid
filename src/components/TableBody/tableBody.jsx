@@ -20,7 +20,7 @@ const TableRows = props => {
         {!virtualization ? (
           <div id="data-table" className="table-body">
             <FixedSizeList
-              height={windowHeight - marginTop}
+              height={tableBodyHeight}
               itemCount={1000}
               itemSize={42}
               width={1385}
