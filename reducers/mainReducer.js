@@ -10,6 +10,7 @@ const initialState = {
     vacation: null,
   },
   sortField: null,
+  sortFieldCounter: 0,
   virtualization: true,
   inVacation: true,
 };
@@ -31,6 +32,11 @@ export default function mainReducer(state = initialState, action) {
       return {
         ...state,
         sortField: payload,
+      };
+    case 'setSortFieldCounter':
+      return {
+        ...state,
+        sortFieldCounter: payload,
       };
     case 'setVirtualization':
       return {

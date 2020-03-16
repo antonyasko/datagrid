@@ -10,6 +10,12 @@ export const setSortField = sortField => dispatch =>
     payload: sortField,
   });
 
+export const setSortFieldCounter = sortFieldCounter => dispatch =>
+  dispatch({
+    type: 'setSortFieldCounter',
+    payload: sortFieldCounter,
+  });
+
 export const setVirtualization = virtualization => dispatch =>
   dispatch({
     type: 'setVirtualization',

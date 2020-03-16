@@ -48,6 +48,12 @@ body {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        #table-wrapper {
+          display: flex;
+          flex-direction: column;
+          justify-content: start;
+          align-items: flex-start;
+        }
       }
     }
   }

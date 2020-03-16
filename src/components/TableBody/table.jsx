@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-expressions */
 import React from 'react';
+
 import { connect } from 'react-redux';
 
 import dataTable from '../../data.json';
@@ -21,36 +23,34 @@ document.body.addEventListener('keyup', e => {
   if (e.key === 'Control') rowsState.ctrl = false;
 });
 
-function makeActive(e) {
-  const { target } = e;
-  const nodeClass = target.parentNode.classList;
+function makeActiveRow(e) {
+  const { currentTarget } = e;
+  const nodeClass = currentTarget.classList;
   const activeRows = Array.from(document.body.getElementsByClassName('active-row'));
 
-  if (target.tagName === 'TD') {
-    if (activeRows.length === 0) {
-      nodeClass.add('active-row');
-    } else if (activeRows.length === 1) {
-      if (rowsState.ctrl) {
-        nodeClass.contains('active-row')
-          ? nodeClass.remove('active-row')
-          : nodeClass.add('active-row');
-      } else {
-        nodeClass.contains('active-row')
-          ? nodeClass.remove('active-row')
-          : (activeRows.forEach(item => item.classList.remove('active-row')),
-            nodeClass.add('active-row'));
-      }
-    } else if (activeRows.length > 1) {
-      if (rowsState.ctrl) {
-        nodeClass.contains('active-row')
-          ? nodeClass.remove('active-row')
-          : nodeClass.add('active-row');
-      } else {
-        activeRows.forEach(item => item.classList.remove('active-row'));
-        nodeClass.contains('active-row')
-          ? nodeClass.remove('active-row')
-          : nodeClass.add('active-row');
-      }
+  if (activeRows.length === 0) {
+    nodeClass.add('active-row');
+  } else if (activeRows.length === 1) {
+    if (rowsState.ctrl) {
+      nodeClass.contains('active-row')
+        ? nodeClass.remove('active-row')
+        : nodeClass.add('active-row');
+    } else {
+      nodeClass.contains('active-row')
+        ? nodeClass.remove('active-row')
+        : (activeRows.forEach(item => item.classList.remove('active-row')),
+          nodeClass.add('active-row'));
+    }
+  } else if (activeRows.length > 1) {
+    if (rowsState.ctrl) {
+      nodeClass.contains('active-row')
+        ? nodeClass.remove('active-row')
+        : nodeClass.add('active-row');
+    } else {
+      activeRows.forEach(item => item.classList.remove('active-row'));
+      nodeClass.contains('active-row')
+        ? nodeClass.remove('active-row')
+        : nodeClass.add('active-row');
     }
   }
 }
@@ -71,37 +71,43 @@ const Table = props => {
       )
     : dataWithVacation;
 
-  const { sortField } = props;
-  const sortedTableData = sortField
-    ? dataToShow.sort((a, b) => (a[sortField] > b[sortField] ? 1 : -1))
-    : dataToShow;
+  const { sortField, sortFieldCounter } = props;
 
-  return (
-    <table cellSpacing="0">
-      <tbody id="data-table">
-        {sortedTableData.map((employee, index) => {
+  let sortedTableData;
+
+  if (sortFieldCounter % 3 === 0) {
+    sortedTableData = dataToShow.sort((a, b) => (a.id > b.id ? 1 : -1));
+  } else if (sortFieldCounter % 3 === 1) {
+    sortedTableData = dataToShow.sort((a, b) => (a[sortField] > b[sortField] ? 1 : -1));
+  } else if (sortFieldCounter % 3 === 2) {
+    sortedTableData = dataToShow.sort((a, b) => (a[sortField] < b[sortField] ? 1 : -1));
+  }
+
+  return sortedTableData.map((employee, index) => {
+    return (
+      <div
+        key={sortedTableData[index].id}
+        className="employee-options table-row"
+        onClick={makeActiveRow}
+      >
+        {Object.values(sortedTableData[index]).map((option, i) => {
           return (
-            <tr key={sortedTableData[index].id} className="employee-options" onClick={makeActive}>
-              {Object.values(sortedTableData[index]).map((option, i) => {
-                return (
-                  <td key={`td${i}`} className="employee-item">
-                    {typeof option !== 'boolean' ? option : option === true ? 'Yes' : 'No'}
-                  </td>
-                );
-              })}
-            </tr>
+            <div key={`td${i}`} className="employee-item">
+              {typeof option !== 'boolean' ? option : option === true ? 'Yes' : 'No'}
+            </div>
           );
         })}
-      </tbody>
-    </table>
-  );
+      </div>
+    );
+  });
 };
 
 const mapStateToProps = ({ mainReducer }) => {
-  const { searchValues, sortField, virtualization, inVacation } = mainReducer;
+  const { searchValues, sortField, sortFieldCounter, virtualization, inVacation } = mainReducer;
 
   return {
     sortField,
+    sortFieldCounter,
     searchValues,
     virtualization,
     inVacation,

@@ -3,8 +3,14 @@
 /* eslint-disable react/prop-types */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { setSortField, setOneOfSearchValues, setVacation } from '../../../actions';
+import {
+  setSortField,
+  setSortFieldCounter,
+  setOneOfSearchValues,
+  setVacation,
+} from '../../../actions';
 import dataTable from '../../data.json';
+import arrowIcon from '../../../assets/icons/arrow.svg';
 import arrowEmptyIcon from '../../../assets/icons/arrow-empty.svg';
 import searchIcon from '../../../assets/icons/search.svg';
 import searchFilterIcon from '../../../assets/icons/search-filter.svg';
@@ -12,6 +18,16 @@ import closeIcon from '../../../assets/icons/close.svg';
 import '../../../node_modules/bootstrap-toggle/css/bootstrap-toggle.css';
 
 import './tableHead.scss';
+
+// const columsState = { shift: false };
+
+// document.body.addEventListener('keydown', e => {
+//   if (e.key === 'Shift') columsState.shift = true;
+// });
+
+// document.body.addEventListener('keyup', e => {
+//   if (e.key === 'Shift') columsState.shift = false;
+// });
 
 class TableHead extends PureComponent {
   constructor(props) {
@@ -50,9 +66,9 @@ class TableHead extends PureComponent {
   };
 
   sortValues = event => {
-    const { setSortField } = this.props;
-    const option = event.currentTarget.getAttribute('option');
-    setSortField(option);
+    const { setSortField, setSortFieldCounter, sortFieldCounter } = this.props;
+    setSortFieldCounter(sortFieldCounter + 1);
+    setSortField(event.currentTarget.getAttribute('option'));
   };
 
   showInVacation = () => {
@@ -61,7 +77,7 @@ class TableHead extends PureComponent {
   };
 
   render() {
-    const { inVacation, searchValues } = this.props;
+    const { inVacation, searchValues, sortFieldCounter, sortField } = this.props;
 
     return (
       <div className="option-list">
@@ -107,8 +123,24 @@ class TableHead extends PureComponent {
                 >
                   <p className="option-title">{option}</p>
                   <div className="arrows">
-                    <img className="up-arrow-icon" src={arrowEmptyIcon} alt="up-arrow" />
-                    <img className="down-arrow-icon" src={arrowEmptyIcon} alt="down-arrow" />
+                    <img
+                      className="up-arrow-icon"
+                      src={
+                        sortFieldCounter % 3 === 2 && sortField === option
+                          ? arrowIcon
+                          : arrowEmptyIcon
+                      }
+                      alt="up-arrow"
+                    />
+                    <img
+                      className="down-arrow-icon"
+                      src={
+                        sortFieldCounter % 3 === 1 && sortField === option
+                          ? arrowIcon
+                          : arrowEmptyIcon
+                      }
+                      alt="down-arrow"
+                    />
                   </div>
                 </button>
                 <button
@@ -128,14 +160,14 @@ class TableHead extends PureComponent {
 }
 
 const mapStateToProps = ({ mainReducer }) => {
-  return {
-    searchValues: mainReducer.searchValues,
-    inVacation: mainReducer.inVacation,
-  };
+  const { searchValues, sortField, sortFieldCounter, inVacation } = mainReducer;
+
+  return { searchValues, sortField, sortFieldCounter, inVacation };
 };
 
 export default connect(mapStateToProps, {
   setSortField,
+  setSortFieldCounter,
   setOneOfSearchValues,
   setVacation,
 })(TableHead);

@@ -42,9 +42,9 @@ $formColor                     : #008000;
 
 	&:after,
 	&:before {
-		background-color: $gray;
+		background-color: $formColor;
 		color: $white;
-		content : "Off";
+		content : "On";
         display: block;
 		font-size: $inputFontSize;
 		line-height: $lineHeight;
@@ -58,15 +58,15 @@ $formColor                     : #008000;
 	}
 
 	&:after {
-		background-color: $formColor;
-		content : "On";
+		background-color: $gray;
+		content : "Off";
         left: 0;
         text-indent: 50%;
 		width: 100%;
             
         background: 
                 -webkit-linear-gradient(left, darken($formBg, 10%) 0, $formBg 100%) repeat-y 0 0,
-                -webkit-linear-gradient(left, $formBg 0%, $formBg 49%, $formColor 50%, $formColor 100%) repeat-y 0 0;
+                -webkit-linear-gradient(left, $formBg 0%, $formBg 49%, $gray 50%, $gray 100%) repeat-y 0 0;
         
         background-size: 50% 50%, 100% 100%;
         background-origin: 50% 50%, 0 0;
