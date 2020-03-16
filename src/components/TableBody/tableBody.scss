@@ -28,6 +28,9 @@
         border-right: 1px solid #303030;
         color:#000000;
         text-overflow: ellipsis;
+        p {
+          margin: 0;
+        }
       }
     }
   }
@@ -47,14 +50,15 @@
   }
 }
 
-
 .employee-options:hover {
   background-color: #fffacd;
   cursor: pointer;
 }
 .employee-item:first-child {
-  width: 100px;
+  width: 95px;
   border-left: 1px solid #303030;
+  justify-content: flex-end !important;
+  padding-right: 10px !important;
 }
 
 .employee-item:nth-child(2) {
@@ -63,6 +67,7 @@
 
 .employee-item:nth-child(3) {
   width: 120px;
+  justify-content: center !important;
 }
 
 .employee-item:nth-child(4) {
@@ -79,4 +84,5 @@
 
 .employee-item:nth-child(7) {
   width: 175px;
+  justify-content: center !important;
 }
