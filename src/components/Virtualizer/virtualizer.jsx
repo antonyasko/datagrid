@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable react/prop-types */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { setVirtualization } from '../../../actions';

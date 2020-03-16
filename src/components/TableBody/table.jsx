@@ -1,12 +1,5 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable no-unused-expressions */
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import dataTable from '../../data.json';
 
 const rowsState = { ctrl: false };
@@ -59,7 +52,6 @@ const Table = props => {
   const { searchValues, inVacation } = props;
 
   const dataWithVacation = inVacation ? dataTable : dataTable.filter(obj => obj.vacation === false);
-
   const fieldsWithSearchValues = Object.keys(searchValues).filter(field => !!searchValues[field]);
   const dataToShow = fieldsWithSearchValues.length
     ? dataWithVacation.filter(obj =>

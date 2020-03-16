@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable no-shadow */
-/* eslint-disable react/prop-types */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -18,16 +15,6 @@ import closeIcon from '../../../assets/icons/close.svg';
 import '../../../node_modules/bootstrap-toggle/css/bootstrap-toggle.css';
 
 import './tableHead.scss';
-
-// const columsState = { shift: false };
-
-// document.body.addEventListener('keydown', e => {
-//   if (e.key === 'Shift') columsState.shift = true;
-// });
-
-// document.body.addEventListener('keyup', e => {
-//   if (e.key === 'Shift') columsState.shift = false;
-// });
 
 class TableHead extends PureComponent {
   constructor(props) {
