@@ -3,18 +3,7 @@ import { connect } from 'react-redux';
 import dataTable from '../../data.json';
 
 const rowsState = { ctrl: false };
-
-document.body.addEventListener('keydown', e => {
-  if (e.key === 'Delete') {
-    const activeRows = Array.from(document.body.getElementsByClassName('active-row'));
-    if (activeRows.length !== 0) activeRows.forEach(item => item.remove());
-  }
-  if (e.key === 'Control') rowsState.ctrl = true;
-});
-
-document.body.addEventListener('keyup', e => {
-  if (e.key === 'Control') rowsState.ctrl = false;
-});
+const removeRows = [];
 
 function makeActiveRow(e) {
   const { currentTarget } = e;
@@ -48,19 +37,38 @@ function makeActiveRow(e) {
   }
 }
 
+document.body.addEventListener('keydown', e => {
+  if (e.key === 'Delete') {
+    const activeRows = Array.from(document.body.getElementsByClassName('active-row'));
+    if (activeRows.length !== 0) {
+      activeRows.forEach(item => {
+        item.style.display = 'none';
+        removeRows.push(Number(item.firstChild.textContent));
+      });
+    }
+  }
+  if (e.key === 'Control') rowsState.ctrl = true;
+});
+
+document.body.addEventListener('keyup', e => {
+  if (e.key === 'Control') rowsState.ctrl = false;
+});
+
 const Table = props => {
   const { searchValues, inVacation } = props;
-
-  const dataWithVacation = inVacation ? dataTable : dataTable.filter(obj => obj.vacation === false);
+  const activeData = dataTable.filter(obj => !removeRows.includes(obj.id));
+  const dataWithVacation = inVacation
+    ? activeData
+    : activeData.filter(obj => obj.vacation === false);
   const fieldsWithSearchValues = Object.keys(searchValues).filter(field => !!searchValues[field]);
   const dataToShow = fieldsWithSearchValues.length
     ? dataWithVacation.filter(obj =>
         fieldsWithSearchValues.every(field => {
           return typeof obj[field] === 'number'
             ? String(obj[field]).indexOf(searchValues[field]) === 0
-            : (field === 'name'
+            : field === 'name'
             ? obj[field].toUpperCase().includes(searchValues[field].toUpperCase())
-            : obj[field].toUpperCase().indexOf(searchValues[field].toUpperCase()) === 0);
+            : obj[field].toUpperCase().indexOf(searchValues[field].toUpperCase()) === 0;
         })
       )
     : dataWithVacation;

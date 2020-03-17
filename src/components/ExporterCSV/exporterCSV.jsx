@@ -33,7 +33,9 @@ export default class ExporterCSV extends PureComponent {
   convertToCSV = () => {
     const lines = [];
     const rowHead = Array.from(document.body.getElementsByClassName('option-list'));
-    const rowsBody = Array.from(document.body.getElementsByClassName('table-row'));
+    const rowsBody = Array.from(document.body.getElementsByClassName('table-row')).filter(
+      item => item.style.display !== 'none'
+    );
     const numCols = rowsBody[0].getElementsByClassName('table-cell').length;
 
     let lineHead = '';
