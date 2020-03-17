@@ -1,0 +1,285 @@
+.option-list {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+  height: min-content;
+  justify-content: center;
+  .option-item {
+    height: 90px;
+    font-size: 18px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    .search-field {
+      width: 60px;
+      height: 40px;
+      padding: 0;
+      border: none;
+      font-size: 18px;
+    }
+    button {
+      background: none;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+    }
+    img {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      padding: 0;
+    }
+    .search-bar {
+      display: none;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      height: 40px;
+      border: 1px solid black;
+      background-color: #cacaca;
+      .close-button {
+        width: 40px;
+        height: 40px;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-size: 50% !important;
+      }
+    }
+    .buttons-block {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #303030;
+      border-bottom: 1px solid #303030;
+      background-color: #cacaca;
+      border-right: 1px solid #303030;
+      .sort-button {
+        padding: 0 0 0 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .option-title {
+          color: #000000;
+          font-weight: bold;
+          font-size: 20px;
+          margin: 0;
+        }
+        .arrows {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+          width: 40px;
+          height: 40px;
+          .up-arrow-icon {
+            transform: rotate(180deg);
+          }
+        }
+      }
+      .search-button {
+        width: 40px;
+        height: 40px;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-size: 50% !important;
+      }
+    }
+  }
+  .sort-button:hover {
+    background-color: #008000 !important;
+  }
+  .search-button:hover {
+    background-color: #00bfff !important;
+  }
+  .close-button:hover {
+    background-color: #ff0000 !important;
+  }
+}
+
+.option-item:first-child {
+  .search-bar {
+    .search-field {
+      width: 70px;
+    }
+  }
+  .buttons-block {
+    width: 110px;
+    border-left: 1px solid #303030;
+    .sort-button {
+      padding-right: 8px;
+    }
+  }
+}
+
+.option-item:nth-child(2) {
+  .search-bar {
+    .search-field {
+      width: 174px;
+    }
+  }
+  .buttons-block {
+    width: 215px;
+    .sort-button {
+      padding-right: 78px;
+    }
+  }
+}
+
+.option-item:nth-child(3) {
+  .search-bar {
+    .search-field {
+      width: 89px;
+    }
+  }
+  .buttons-block {
+    width: 130px;
+    .sort-button {
+      padding-right: 11px;
+    }
+  }
+}
+
+.option-item:nth-child(4) {
+  .search-bar {
+    .search-field {
+      width: 169px;
+    }
+  }
+  .buttons-block {
+    width: 210px;
+    .sort-button {
+      width: 170px;
+      padding-right: 30px;
+    }
+  }
+}
+
+.option-item:nth-child(5) {
+  .search-bar {
+    .search-field {
+      width: 119px;
+    }
+  }
+  .buttons-block {
+    width: 160px;
+    .sort-button {
+      padding-right: 9px;
+    }
+  }
+}
+
+.option-item:nth-child(6) {
+  .search-bar {
+    .search-field {
+      width: 309px;
+    }
+  }
+  .buttons-block {
+    width: 350px;
+    .sort-button {
+      width: 311px;
+      padding-right: 214px;
+    }
+  }
+}
+
+.option-item:nth-child(7) {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  width: 202px;
+  height: 40px;
+  border: 1px solid black;
+  border-left: none;
+  background-color: #cacaca;
+  margin-top: 48px;
+  p {
+    width: min-content;
+    color: #000000;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0;
+  }
+  input {
+    margin: 0;
+  }
+}
+
+$fontSize                            : 15px;
+$inputFontSize                       : $fontSize - 2;
+$lineHeight                          : 1.5;
+$inputLineHeight                     : 1.24;
+$white                               : #FFF;
+$gray                                : #636363;
+$formInputHeight                     : (($fontSize+2) * 2);
+$formBg                              : $white;
+$formColor                     : #0000ff;
+
+.toggle-button {
+	$switchWidth: 78px;
+	background-color: $formBg;
+	border: 1px solid $gray;
+	color: $white;
+	cursor: pointer;
+    display: inline-block;
+	font-size: 0;
+	height: $formInputHeight;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	width: $switchWidth;
+
+    -webkit-user-select: none;
+    -webkit-appearance: none;
+
+	&:after,
+	&:before {
+		background-color: $gray;
+		color: $white;
+    content : "all";
+        display: block;
+		font-size: $inputFontSize;
+		line-height: $lineHeight;
+		height: 100%;
+		left: 0;
+		padding: 7px 0;
+		position: absolute;
+		text-align: center;
+		top: 0;
+		width: 51%;
+	}
+
+	&:after {
+		background-color: $formColor;
+		content : "";
+        left: 0;
+        text-indent: 50%;
+		width: 100%;
+            
+        background: 
+                -webkit-linear-gradient(left, darken($formBg, 10%) 0, $formBg 100%) repeat-y 0 0,
+                -webkit-linear-gradient(left, $formBg 0%, $formBg 49%, $formColor 50%, $formColor 100%) repeat-y 0 0;
+        
+        background-size: 50% 50%, 100% 100%;
+        background-origin: 50% 50%, 0 0;
+            
+        -webkit-transition: all 0.15s ease;
+        -moz-transition: all 0.15s ease;
+        -ms-transition: all 0.15s ease;
+        transition: all 0.15s ease;
+  }
+      
+  &:checked:after {
+      left: 50%;    
+  }
+}
