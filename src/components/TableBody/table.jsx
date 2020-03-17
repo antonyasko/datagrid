@@ -58,7 +58,9 @@ const Table = props => {
         fieldsWithSearchValues.every(field => {
           return typeof obj[field] === 'number'
             ? String(obj[field]).indexOf(searchValues[field]) === 0
-            : obj[field].toUpperCase().indexOf(searchValues[field].toUpperCase()) === 0;
+            : (field === 'name'
+            ? obj[field].toUpperCase().includes(searchValues[field].toUpperCase())
+            : obj[field].toUpperCase().indexOf(searchValues[field].toUpperCase()) === 0);
         })
       )
     : dataWithVacation;
